@@ -18,7 +18,10 @@ export class AppComponent {
   selectedEmpresa = {} as Entity;
   selectedIndex: number = 0;
   visible: boolean = false;
+  able: boolean = false;
   submitted: boolean = false;
+  edited: boolean = false;
+  deleted: boolean = false;
   pageSize = 3;
   currentPage = 0;
 
@@ -64,6 +67,12 @@ export class AppComponent {
       FechaEdicion: dia,
     });
     this.form.disable();
+    this.visible = true;
+  }
+
+  habilitarFormulario() {
+    this.able = true;
+    this.form.enable();
   }
 
   agregarEmpresa() {
@@ -87,7 +96,52 @@ export class AppComponent {
     this.form.reset();
   }
 
-  cerrarModal() {
+  editarEmpresa() {
+    if (this.selectedEmpresa) {
+      const empresa: Entity = {
+        Razon: this.form.value.Razon || 'Razon',
+        NombreEmpresa: this.form.value.NombreEmpresa || 'NombreEmpresa',
+        IdentificacionFiscal: this.form.value.IdentificacionFiscal || 0,
+        NumeroTelefono: this.form.value.NumeroTelefono || 0,
+        CorreoElectronico: this.form.value.CorreoElectronico || 'CorreoElectronico',
+        SitioWeb: this.form.value.SitioWeb || 'SitioWeb',
+        Direccion: this.form.value.Direccion || 'Direccion',
+        Pais: this.form.value.Pais || 'Pais',
+        Facturacion: this.form.value.Facturacion || 0,
+        FechaEdicion: this.form.value.FechaEdicion || new Date(),
+      };
+      let index = this.empresas.indexOf(this.selectedEmpresa);
+      this.empresas[index] = empresa;
+      this.able = false;
+      setTimeout(() => {
+        this.edited = false;
+      }, 3000);
+      this.edited = true;
+      this.form.reset();
+    } else {
+      alert('No se encontró la empresa');
+    }
+  }
+
+  eliminarEmpresa() {
+    if (this.selectedEmpresa) {
+      let index = this.empresas.indexOf(this.selectedEmpresa);
+      this.empresas.splice(index, 1);
+      this.able = false;
+      setTimeout(() => {
+        this.deleted = false;
+      }, 3000);
+      this.deleted = true;
+      this.form.reset();
+    } else {
+      alert('No se encontró la empresa');
+    }
+  }
+
+  cancelar() {
+    this.visible = false;
+    this.able = false;
+    this.form.enable();
     this.form.reset();
   }
 

@@ -177,12 +177,20 @@
       <p class="text-[#242422] text-sm font-normal text-left py-8">Página {{currentPage + 1}} de {{totalPages}}</p>
     </div>
     <div class="flex justify-center">
-      <button (click)="previousPage()" [disabled]="currentPage == 0" class="hover:text-[#CB9F01]">
+      <button 
+        (click)="previousPage()"
+        *ngIf="currentPage > 0"
+        class="hover:text-[#CB9F01]"
+      >
         <svg class="w-10 h-10" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14 8-4 4 4 4"/>
         </svg>
       </button>
-      <button (click)="nextPage()" [disabled]="currentPage >= empresas.length/pageSize - 1" class="hover:text-[#CB9F01]">
+      <button 
+        (click)="nextPage()"
+        [disabled]="currentPage >= empresas.length/pageSize - 1" 
+        class="hover:text-[#CB9F01]"
+      >
         <svg class="w-10 h-10" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m10 16 4-4-4-4"/>
         </svg>
@@ -197,8 +205,22 @@
     <h3 class="font-semibold text-[#242422] text-xl py-4">Detalles de empresa</h3>
 
     <div *ngIf="this.submitted" class="rounded-lg bg-green-600 w-80 p-5 transition-all duration-300 ease-in-out">
-      <h5 class="text-white text-lg font-semibold text-wrap"><i class="fas fa-plus pr-2"></i>PRODUCTO AÑADIDO</h5>
-      <p class="text-white text-sm font-medium text-wrap">El producto fue agregado al catálogo de manera existosamente.</p>
+      <h5 class="text-white text-lg font-semibold text-wrap">EMPRESA REGISTRADA</h5>
+      <p class="text-white text-sm font-medium text-wrap">
+        Una nueva empresa ha sido registrada exitosamente.
+      </p>
+    </div>
+    <div *ngIf="this.edited" class="rounded-lg bg-yellow-600 w-80 p-5 transition-all duration-300 ease-in-out">
+      <h5 class="text-white text-lg font-semibold text-wrap">EMPRESA ACTUALIZADA</h5>
+      <p class="text-white text-sm font-medium text-wrap">
+        Una empresa ha sido registrada exitosamente.
+      </p>
+    </div>
+    <div *ngIf="this.deleted" class="rounded-lg bg-red-600 w-80 p-5 transition-all duration-300 ease-in-out">
+      <h5 class="text-white text-lg font-semibold text-wrap">EMPRESA ELIMINADA</h5>
+      <p class="text-white text-sm font-medium text-wrap">
+        Una empresa ha sido eliminada exitosamente.
+      </p>
     </div>
 
     <form 
@@ -326,7 +348,8 @@
         />
       </div>
       <button 
-        type="submit" 
+        type="submit"
+        *ngIf="!this.visible"
         class="bg-[#CB9F01] text-white font-semibold rounded col-start-1 w-[60%] py-2 transition-all duration-200 ease-in-out hover:bg-[#CB9F01]/60"
         [disabled]="this.form.invalid"
         [class.disabled]="this.form.invalid"
@@ -334,9 +357,44 @@
         <i class="fas fa-plus pr-2"></i>
         Añadir producto
       </button>
+      <button 
+        (click)="habilitarFormulario()"
+        *ngIf="this.visible && !this.able"
+        class="bg-[#CB9F01] text-white font-semibold rounded col-start-1 w-[60%] py-2 transition-all duration-200 ease-in-out hover:bg-[#CB9F01]/60"
+        [disabled]="this.form.invalid"
+        [class.disabled]="this.form.invalid"
+      >
+        <i class="fas fa-plus pr-2"></i>
+        Habilitar edición
+      </button>
+      <button 
+        (click)="editarEmpresa()"
+        *ngIf="this.visible && this.able"
+        class="bg-[#29BD9B] text-white font-semibold rounded col-start-1 w-[60%] py-2 transition-all duration-200 ease-in-out hover:bg-[#29BD9B]/60"
+        [disabled]="this.form.invalid"
+        [class.disabled]="this.form.invalid"
+      >
+        <i class="fas fa-plus pr-2"></i>
+        Editar empresa
+      </button>
+      <button 
+        (click)="eliminarEmpresa()"
+        *ngIf="this.visible && this.able"
+        class="bg-[#E73434] text-white font-semibold rounded col-start-1 w-[60%] py-2 transition-all duration-200 ease-in-out hover:bg-[#E73434]/60"
+      >
+        <i class="fas fa-plus pr-2"></i>
+        Eliminar empresa
+      </button>
+      <button 
+        (click)="cancelar()"
+        *ngIf="this.visible"
+        class="bg-[#CB9F01] text-white font-semibold rounded col-start-1 w-[60%] py-2 transition-all duration-200 ease-in-out hover:bg-[#CB9F01]/60"
+      >
+        <i class="fas fa-plus pr-2"></i>
+        Regresar
+      </button>
     </form>
     
-
   </section>
   
 </main>
