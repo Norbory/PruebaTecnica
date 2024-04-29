@@ -5,7 +5,7 @@
 </style>
 
 <main class="flex flex-1 flex-col justify-center items-center">
-  <h1 class="font-bold md:text-6xl text-4xl text-[#CB9F01] pt-40">CHECKSUPPLY</h1>
+  <h1 class="font-bold md:text-6xl text-4xl text-[#ead949] pt-40">CHECKSUPPLY</h1>
   <h3 class="font-semibold text-[#FDFBF6] md:text-2xl pb-2">Your online safety tool</h3>
   <p class="font-normal text-[#BBBABC] md:max-w-[70%] max-w-[90%] text-center md:py-10 py-6 md:text-lg text-sm">
     Effortlessly search for any enterprise's presence in our database for potential ties to malicious activities. Simply input the enterprise name or domain, and receive immediate results.
@@ -42,7 +42,7 @@
           {{ empresas.length }}
         </h2>
         <h3 class="text-[#242422] text-sm font-semibold text-wrap">
-          <strong class="text-[#29BD9B]">+ 16%</strong> last month
+          <strong class="text-[#004e35]">+ 16%</strong> last month
         </h3>
 
       </div>
@@ -62,7 +62,7 @@
           {{ empresas.length }}
         </h2>
         <h3 class="text-[#242422] text-sm font-semibold text-wrap">
-          <strong class="text-[#29BD9B]">+ 16%</strong> last month
+          <strong class="text-[#004e35]">+ 16%</strong> last month
         </h3>
 
       </div>
@@ -82,7 +82,7 @@
           1,000
         </h2>
         <h3 class="text-[#242422] text-sm font-semibold text-wrap">
-          <strong class="text-[#29BD9B]">+ 16%</strong> last month
+          <strong class="text-[#004e35]">+ 16%</strong> last month
         </h3>
 
       </div>
@@ -204,19 +204,19 @@
   >
     <h3 class="font-semibold text-[#242422] text-xl py-4">Detalles de empresa</h3>
 
-    <div *ngIf="this.submitted" class="rounded-lg bg-green-600 w-80 p-5 transition-all duration-300 ease-in-out">
+    <div *ngIf="this.submitted" class="fixed top-10 left-10 rounded-lg bg-green-600 w-80 p-5 transition-all duration-300 ease-in-out">
       <h5 class="text-white text-lg font-semibold text-wrap">EMPRESA REGISTRADA</h5>
       <p class="text-white text-sm font-medium text-wrap">
         Una nueva empresa ha sido registrada exitosamente.
       </p>
     </div>
-    <div *ngIf="this.edited" class="rounded-lg bg-yellow-600 w-80 p-5 transition-all duration-300 ease-in-out">
-      <h5 class="text-white text-lg font-semibold text-wrap">EMPRESA ACTUALIZADA</h5>
-      <p class="text-white text-sm font-medium text-wrap">
+    <div *ngIf="this.edited" class="fixed top-10 left-10 rounded-lg bg-yellow-600 w-80 p-5 transition-all duration-300 ease-in-out">
+      <h5 class="text-[#282828] text-lg font-semibold text-wrap">EMPRESA ACTUALIZADA</h5>
+      <p class="text-[#282828] text-sm font-medium text-wrap">
         Una empresa ha sido registrada exitosamente.
       </p>
     </div>
-    <div *ngIf="this.deleted" class="rounded-lg bg-red-600 w-80 p-5 transition-all duration-300 ease-in-out">
+    <div *ngIf="this.deleted" class="fixed top-10 left-10 rounded-lg bg-red-600 w-80 p-5 transition-all duration-300 ease-in-out">
       <h5 class="text-white text-lg font-semibold text-wrap">EMPRESA ELIMINADA</h5>
       <p class="text-white text-sm font-medium text-wrap">
         Una empresa ha sido eliminada exitosamente.
@@ -360,7 +360,7 @@
       <button 
         (click)="habilitarFormulario()"
         *ngIf="this.visible && !this.able"
-        class="bg-[#CB9F01] text-white font-semibold rounded col-start-1 w-[60%] py-2 transition-all duration-200 ease-in-out hover:bg-[#CB9F01]/60"
+        class="bg-[#CB9F01] text-[#282828] font-semibold rounded col-start-1 w-[60%] py-2 transition-all duration-200 ease-in-out hover:bg-[#CB9F01]/60"
         [disabled]="this.form.invalid"
         [class.disabled]="this.form.invalid"
       >
@@ -370,7 +370,7 @@
       <button 
         (click)="editarEmpresa()"
         *ngIf="this.visible && this.able"
-        class="bg-[#29BD9B] text-white font-semibold rounded col-start-1 w-[60%] py-2 transition-all duration-200 ease-in-out hover:bg-[#29BD9B]/60"
+        class="bg-[#004e35] text-white font-semibold rounded col-start-1 w-[60%] py-2 transition-all duration-200 ease-in-out hover:bg-[#004e35]/60"
         [disabled]="this.form.invalid"
         [class.disabled]="this.form.invalid"
       >
@@ -380,7 +380,7 @@
       <button 
         (click)="eliminarEmpresa()"
         *ngIf="this.visible && this.able"
-        class="bg-[#E73434] text-white font-semibold rounded col-start-1 w-[60%] py-2 transition-all duration-200 ease-in-out hover:bg-[#E73434]/60"
+        class="bg-[#760000] text-white font-semibold rounded col-start-1 w-[60%] py-2 transition-all duration-200 ease-in-out hover:bg-[#760000]/60"
       >
         <i class="fas fa-plus pr-2"></i>
         Eliminar empresa
@@ -388,7 +388,7 @@
       <button 
         (click)="cancelar()"
         *ngIf="this.visible"
-        class="bg-[#CB9F01] text-white font-semibold rounded col-start-1 w-[60%] py-2 transition-all duration-200 ease-in-out hover:bg-[#CB9F01]/60"
+        class="bg-[#CB9F01] text-[#282828] font-semibold rounded col-start-1 w-[60%] py-2 transition-all duration-200 ease-in-out hover:bg-[#CB9F01]/60"
       >
         <i class="fas fa-plus pr-2"></i>
         Regresar

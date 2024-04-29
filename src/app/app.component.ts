@@ -52,6 +52,9 @@ export class AppComponent {
 
   verEmpresa(empresa: Entity) {
     this.visible  = true;
+    if (this.able) {
+      this.able = false;
+    }
     this.selectedEmpresa = empresa;
     let dia = new Date(empresa.FechaEdicion);
     this.form.setValue({
@@ -67,7 +70,6 @@ export class AppComponent {
       FechaEdicion: dia,
     });
     this.form.disable();
-    this.visible = true;
   }
 
   habilitarFormulario() {
@@ -117,6 +119,7 @@ export class AppComponent {
         this.edited = false;
       }, 3000);
       this.edited = true;
+      this.visible = false;
       this.form.reset();
     } else {
       alert('No se encontró la empresa');
@@ -132,6 +135,7 @@ export class AppComponent {
         this.deleted = false;
       }, 3000);
       this.deleted = true;
+      this.visible = false;
       this.form.reset();
     } else {
       alert('No se encontró la empresa');
