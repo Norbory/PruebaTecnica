@@ -1,0 +1,62 @@
+[
+  {
+    "Razon" : "Empresa 1 S.A.C.",
+    "NombreEmpresa": "Empresa 1",
+    "IdentificacionFiscal": 121456789,
+    "NumeroTelefono": 121456789,
+    "CorreoElectronico": "empresa1@example.com",
+    "SitioWeb": "www.empresa1.com",
+    "Direccion": "Calle 1, Ciudad 1, País 1",
+    "Pais": "Argentina",
+    "Facturacion": 10000,
+    "FechaEdicion": "2022-03-03T00:00:00.000Z"
+  },
+  {
+    "Razon" : "Empresa 2 S.A.C.",
+    "NombreEmpresa": "Empresa 2",
+    "IdentificacionFiscal": 2233225566,
+    "NumeroTelefono": 2233225566,
+    "CorreoElectronico": "empresa2@example.com",
+    "SitioWeb": "www.empresa2.com",
+    "Direccion": "Calle 2, Ciudad 2, País 2",
+    "Pais": "Chile",
+    "Facturacion": 20000,
+    "FechaEdicion": "2022-04-04T00:00:00.000Z"
+  },
+  {
+    "Razon" : "Empresa 3 S.A.C.",
+    "NombreEmpresa": "Empresa 3",
+    "IdentificacionFiscal": 123456789,
+    "NumeroTelefono": 123456789,
+    "CorreoElectronico": "empresa3@example.com",
+    "SitioWeb": "www.empresa3.com",
+    "Direccion": "Calle 3, Ciudad 3, País 3",
+    "Pais": "Argentina",
+    "Facturacion": 30000,
+    "FechaEdicion": "2022-03-03T00:00:00.000Z"
+  },
+  {
+    "Razon" : "Empresa 4 S.A.C.",
+    "NombreEmpresa": "Empresa 4",
+    "IdentificacionFiscal": 2233445566,
+    "NumeroTelefono": 2233445566,
+    "CorreoElectronico": "empresa4@example.com",
+    "SitioWeb": "www.empresa4.com",
+    "Direccion": "Calle 4, Ciudad 4, País 4",
+    "Pais": "Chile",
+    "Facturacion": 40000,
+    "FechaEdicion": "2022-04-04T00:00:00.000Z"
+  },
+  {
+    "Razon" : "Empresa 5 S.A.C.",
+    "NombreEmpresa": "Empresa 5",
+    "IdentificacionFiscal": 3344556677,
+    "NumeroTelefono": 3344556677,
+    "CorreoElectronico": "empresa5@example.com",
+    "SitioWeb": "www.empresa5.com",
+    "Direccion": "Calle 5, Ciudad 5, País 5",
+    "Pais": "Perú",
+    "Facturacion": 50000,
+    "FechaEdicion": "2022-05-05T00:00:00.000Z"
+  }
+]
