@@ -119,14 +119,22 @@
       </p>
     </div>
 
+    <!-- Formulario de registro de empresa -->
     <form 
       [formGroup]="form"
       (ngSubmit)="agregarEmpresa()"
-      class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-3"
+      class="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-3"
     >
 
-      <div class="flex flex-col sm:py-4 py-2 justify-between">
-        <label for="Razon" class="text-[#242422] text-md font-semibold">Razón Social</label>
+      <!-- Campo Razon Social -->
+      <div class="flex flex-col sm:py-4 py-2 justify-start min-h-32">
+        <label 
+          for="Razon" 
+          class="text-[#242422] text-md font-semibold px-2" 
+          [class.validoTexto]="form.controls['Razon'].valid && (form.controls['Razon'].touched || form.controls['Razon'].dirty)"
+        >
+          Razón Social
+        </label>
         <input
           placeholder="Ferreyros S.A."
           required 
@@ -134,11 +142,31 @@
           formControlName="Razon"
           type="text"
           class="text-[##393937] text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          [class.noValido]="form.controls['Razon'].invalid && (form.controls['Razon'].touched || form.controls['Razon'].dirty)"
+          [class.valido]="form.controls['Razon'].valid && (form.controls['Razon'].touched || form.controls['Razon'].dirty)"
         />
+        <!-- Elementos de validación -->
+        <div
+          *ngIf="form.controls['Razon'].invalid && (form.controls['Razon'].touched || form.controls['Razon'].dirty)"
+        >
+          <p
+            class="text-[#760000] text-xs font-semibold px-2"
+            *ngIf="form.controls['Razon'].errors?.['required']"
+          >
+            Este campo es obligatorio
+          </p>
+        </div>
       </div>
 
-      <div class="flex flex-col sm:py-4 py-2 justify-between">
-        <label for="NombreEmpresa" class="text-[#242422] text-md font-semibold">Nombre</label>
+      <!-- Campo Nombre Empresa -->
+      <div class="flex flex-col sm:py-4 py-2 justify-start min-h-32">
+        <label 
+          for="NombreEmpresa" 
+          class="text-[#242422] text-md font-semibold px-2"
+          [class.validoTexto]="form.controls['NombreEmpresa'].valid && (form.controls['NombreEmpresa'].touched || form.controls['NombreEmpresa'].dirty)"
+        >
+          Nombre
+        </label>
         <input
           placeholder="Ernst & Young"
           required 
@@ -146,35 +174,125 @@
           formControlName="NombreEmpresa"
           type="text"
           class="text-[##393937] text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          [class.noValido]="form.controls['NombreEmpresa'].invalid && (form.controls['NombreEmpresa'].touched || form.controls['NombreEmpresa'].dirty)"
+          [class.valido]="form.controls['NombreEmpresa'].valid && (form.controls['NombreEmpresa'].touched || form.controls['NombreEmpresa'].dirty)"
         />
+        <!-- Elementos de validación -->
+        <div
+          *ngIf="form.controls['NombreEmpresa'].invalid && (form.controls['NombreEmpresa'].touched || form.controls['NombreEmpresa'].dirty)"
+        >
+          <p
+            class="text-[#760000] text-xs font-semibold px-2"
+            *ngIf="form.controls['NombreEmpresa'].errors?.['required']"
+          >
+            Este campo es obligatorio
+          </p>
+        </div>
       </div>
 
-      <div class="flex flex-col sm:py-4 py-2 justify-between">
-        <label for="IdentificacionFiscal" class="text-[#242422] text-md font-semibold">Identificación tributaria</label>
+      <!-- Campo Identificacion Fiscal -->
+      <div class="flex flex-col sm:py-4 py-2 justify-start min-h-32">
+        <label for="IdentificacionFiscal" class="text-[#242422] text-md font-semibold px-2">Identificación tributaria</label>
         <input
           placeholder="20100028698"
           required 
           id="IdentificacionFiscal"
           formControlName="IdentificacionFiscal"
-          type="number"
+          type="tel"
           class="text-[##393937] text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          [class.noValido]="form.controls['IdentificacionFiscal'].invalid && (form.controls['IdentificacionFiscal'].touched || form.controls['IdentificacionFiscal'].dirty)"
+          [class.valido]="form.controls['IdentificacionFiscal'].valid && (form.controls['IdentificacionFiscal'].touched || form.controls['IdentificacionFiscal'].dirty)"
         />
+        <!-- Elementos de validación -->
+        <div
+          *ngIf="form.controls['IdentificacionFiscal'].invalid && (form.controls['IdentificacionFiscal'].touched || form.controls['IdentificacionFiscal'].dirty)"
+        >
+          <p
+            class="text-[#760000] text-xs font-semibold px-2"
+            *ngIf="form.controls['IdentificacionFiscal'].errors?.['required']"
+          >
+            Este campo es obligatorio
+          </p>
+          <p
+            class="text-[#760000] text-xs font-semibold px-2"
+            *ngIf="form.controls['IdentificacionFiscal'].errors?.['minlength']"
+          >
+            El campo debe tener al menos 11 caracteres
+          </p>
+          <p
+            class="text-[#760000] text-xs font-semibold px-2"
+            *ngIf="form.controls['IdentificacionFiscal'].errors?.['maxlength']"
+          >
+            El campo debe tener un máximo de 11 caracteres
+          </p>
+          <p
+            class="text-[#760000] text-xs font-semibold px-2"
+            *ngIf="form.controls['IdentificacionFiscal'].errors?.['pattern']"
+          >
+            Solo se permiten números
+          </p>
+        </div>
       </div>
 
-      <div class="flex flex-col sm:py-4 py-2 justify-between">
-        <label for="NumeroTelefono" class="text-[#242422] text-md font-semibold">Número</label>
+      <!-- Campo Numero Telefono -->
+      <div class="flex flex-col sm:py-4 py-2 justify-start min-h-32">
+        <label 
+          for="NumeroTelefono" 
+          class="text-[#242422] text-md font-semibold px-2"
+          [class.validoTexto]="form.controls['NumeroTelefono'].valid && (form.controls['NumeroTelefono'].touched || form.controls['NumeroTelefono'].dirty)"
+        >
+          Número Telefónico
+        </label>
         <input
           placeholder="987654321"
           required 
           id="NumeroTelefono"
           formControlName="NumeroTelefono"
-          type="number"
+          type="tel"
           class="text-[##393937] text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          [class.noValido]="form.controls['NumeroTelefono'].invalid && (form.controls['NumeroTelefono'].touched || form.controls['NumeroTelefono'].dirty)"
+          [class.valido]="form.controls['NumeroTelefono'].valid && (form.controls['NumeroTelefono'].touched || form.controls['NumeroTelefono'].dirty)"
         />
+        <!-- Elementos de validación -->
+        <div
+          *ngIf="form.controls['NumeroTelefono'].invalid && (form.controls['NumeroTelefono'].touched || form.controls['NumeroTelefono'].dirty)"
+        >
+          <p
+            class="text-[#760000] text-xs font-semibold px-2"
+            *ngIf="form.controls['NumeroTelefono'].errors?.['required']"
+          >
+            Este campo es obligatorio
+          </p>
+          <p
+            class="text-[#760000] text-xs font-semibold px-2"
+            *ngIf="form.controls['NumeroTelefono'].errors?.['minlength']"
+          >
+            El campo debe tener al menos 9 caracteres
+          </p>
+          <p
+            class="text-[#760000] text-xs font-semibold px-2"
+            *ngIf="form.controls['NumeroTelefono'].errors?.['maxlength']"
+          >
+            El campo debe tener un máximo de 9 caracteres
+          </p>
+          <p
+            class="text-[#760000] text-xs font-semibold px-2"
+            *ngIf="form.controls['NumeroTelefono'].errors?.['pattern']"
+          >
+            Solo se permiten números
+          </p>
+        </div>
       </div>
 
-      <div class="flex flex-col sm:py-4 py-2 justify-between">
-        <label for="CorreoElectronico" class="text-[#242422] text-md font-semibold">Correo</label>
+      <!-- Campo Correo Electronico -->
+      <div class="flex flex-col sm:py-4 py-2 justify-start min-h-32">
+        <label 
+          for="CorreoElectronico" 
+          class="text-[#242422] text-md font-semibold px-2"
+          [class.validoTexto]="form.controls['CorreoElectronico'].valid && (form.controls['CorreoElectronico'].touched || form.controls['CorreoElectronico'].dirty)"
+        >
+          Correo
+        </label>
         <input
           placeholder="correo@empresa.com"
           required 
@@ -182,11 +300,37 @@
           formControlName="CorreoElectronico"
           type="email"
           class="text-[##393937] text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          [class.noValido]="form.controls['CorreoElectronico'].invalid && (form.controls['CorreoElectronico'].touched || form.controls['CorreoElectronico'].dirty)"
+          [class.valido]="form.controls['CorreoElectronico'].valid && (form.controls['CorreoElectronico'].touched || form.controls['CorreoElectronico'].dirty)"
         />
+        <!-- Elementos de validación -->
+        <div
+          *ngIf="form.controls['CorreoElectronico'].invalid && (form.controls['CorreoElectronico'].touched || form.controls['CorreoElectronico'].dirty)"
+        >
+          <p
+            class="text-[#760000] text-xs font-semibold px-2"
+            *ngIf="form.controls['CorreoElectronico'].errors?.['required']"
+          >
+            Este campo es obligatorio
+          </p>
+          <p
+            class="text-[#760000] text-xs font-semibold px-2"
+            *ngIf="form.controls['CorreoElectronico'].errors?.['email']"
+          >
+            El correo no es válido
+          </p>
+        </div>
       </div>
 
-      <div class="flex flex-col sm:py-4 py-2 justify-between">
-        <label for="SitioWeb" class="text-[#242422] text-md font-semibold">Sitio</label>
+      <!-- Campo Sitio Web -->
+      <div class="flex flex-col sm:py-4 py-2 justify-start min-h-32">
+        <label 
+          for="SitioWeb" 
+          class="text-[#242422] text-md font-semibold px-2"
+          [class.validoTexto]="form.controls['SitioWeb'].valid && (form.controls['SitioWeb'].touched || form.controls['SitioWeb'].dirty)"
+        >
+          Sitio Web
+        </label>
         <input
           placeholder="empresa.com"
           required 
@@ -194,11 +338,37 @@
           formControlName="SitioWeb"
           type="url"
           class="text-[##393937] text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          [class.noValido]="form.controls['SitioWeb'].invalid && (form.controls['SitioWeb'].touched || form.controls['SitioWeb'].dirty)"
+          [class.valido]="form.controls['SitioWeb'].valid && (form.controls['SitioWeb'].touched || form.controls['SitioWeb'].dirty)"
         />
+        <!-- Elementos de validación -->
+        <div
+          *ngIf="form.controls['SitioWeb'].invalid && (form.controls['SitioWeb'].touched || form.controls['SitioWeb'].dirty)"
+        >
+          <p
+            class="text-[#760000] text-xs font-semibold px-2"
+            *ngIf="form.controls['SitioWeb'].errors?.['required']"
+          >
+            Este campo es obligatorio
+          </p>
+          <p
+            class="text-[#760000] text-xs font-semibold px-2"
+            *ngIf="form.controls['SitioWeb'].errors?.['pattern']"
+          >
+            La URL no es válida
+          </p>
+        </div>
       </div>
 
-      <div class="flex flex-col sm:py-4 py-2 justify-between">
-        <label for="Direccion" class="text-[#242422] text-md font-semibold">Dirección física</label>
+      <!-- Campo Direccion -->
+      <div class="flex flex-col sm:py-4 py-2 justify-start min-h-32">
+        <label 
+          for="Direccion" 
+          class="text-[#242422] text-md font-semibold px-2"
+          [class.validoTexto]="form.controls['Direccion'].valid && (form.controls['Direccion'].touched || form.controls['Direccion'].dirty)"
+        >
+          Dirección física
+        </label>
         <input
           placeholder="Dirección de empresa"
           required 
@@ -206,11 +376,31 @@
           formControlName="Direccion"
           type="text"
           class="text-[##393937] text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          [class.noValido]="form.controls['Direccion'].invalid && (form.controls['Direccion'].touched || form.controls['Direccion'].dirty)"
+          [class.valido]="form.controls['Direccion'].valid && (form.controls['Direccion'].touched || form.controls['Direccion'].dirty)"
         />
+        <!-- Elementos de validación -->
+        <div
+          *ngIf="form.controls['Direccion'].invalid && (form.controls['Direccion'].touched || form.controls['Direccion'].dirty)"
+        >
+          <p
+            class="text-[#760000] text-xs font-semibold px-2"
+            *ngIf="form.controls['Direccion'].errors?.['required']"
+          >
+            Este campo es obligatorio
+          </p>
+        </div>
       </div>
 
-      <div class="flex flex-col sm:py-4 py-2 justify-between">
-        <label for="Pais" class="text-[#242422] text-md font-semibold">País</label>
+      <!-- Campo Pais -->
+      <div class="flex flex-col sm:py-4 py-2 justify-start min-h-32">
+        <label 
+          for="Pais" 
+          class="text-[#242422] text-md font-semibold px-2"
+          [class.validoTexto]="form.controls['Pais'].valid && (form.controls['Pais'].touched || form.controls['Pais'].dirty)"
+        >
+          País
+        </label>
         <input
           placeholder="Perú"
           required 
@@ -218,11 +408,31 @@
           formControlName="Pais"
           type="text"
           class="text-[##393937] text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          [class.noValido]="form.controls['Pais'].invalid && (form.controls['Pais'].touched || form.controls['Pais'].dirty)"
+          [class.valido]="form.controls['Pais'].valid && (form.controls['Pais'].touched || form.controls['Pais'].dirty)"
         />
+        <!-- Elementos de validación -->
+        <div
+          *ngIf="form.controls['Pais'].invalid && (form.controls['Pais'].touched || form.controls['Pais'].dirty)"
+        >
+          <p
+            class="text-[#760000] text-xs font-semibold px-2"
+            *ngIf="form.controls['Pais'].errors?.['required']"
+          >
+            Este campo es obligatorio
+          </p>
+        </div>
       </div>
 
-      <div class="flex flex-col sm:py-4 py-2 justify-between">
-        <label for="Facturacion" class="text-[#242422] text-md font-semibold">Facturación anual en dólares</label>
+      <!-- Campo Facturacion -->
+      <div class="flex flex-col sm:py-4 py-2 justify-start min-h-32">
+        <label 
+          for="Facturacion"
+          class="text-[#242422] text-md font-semibold px-2"
+          [class.validoTexto]="form.controls['Facturacion'].valid && (form.controls['Facturacion'].touched || form.controls['Facturacion'].dirty)"
+        >
+          Facturación anual en dólares
+        </label>
         <input
           placeholder="500000"
           required 
@@ -230,11 +440,25 @@
           formControlName="Facturacion"
           type="number"
           class="text-[##393937] text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          [class.noValido]="form.controls['Facturacion'].invalid && (form.controls['Facturacion'].touched || form.controls['Facturacion'].dirty)"
+          [class.valido]="form.controls['Facturacion'].valid && (form.controls['Facturacion'].touched || form.controls['Facturacion'].dirty)"
         />
+        <!-- Elementos de validación -->
+        <div
+          *ngIf="form.controls['Facturacion'].invalid && (form.controls['Facturacion'].touched || form.controls['Facturacion'].dirty)"
+        >
+          <p
+            class="text-[#760000] text-xs font-semibold px-2"
+            *ngIf="form.controls['Facturacion'].errors?.['required']"
+          >
+            Este campo es obligatorio
+          </p>
+        </div>
       </div>
 
-      <div class="hidden flex-col sm:py-4 py-2 justify-between">
-        <label for="FechaEdicion" class="text-[#242422] text-md font-semibold">Fecha de última edición</label>
+      <!-- Campo Fecha de creación -->
+      <div class="hidden flex-col sm:py-4 py-2 justify-start min-h-32">
+        <label for="FechaEdicion" class="text-[#242422] text-md font-semibold px-2">Fecha de última edición</label>
         <input
           required 
           id="FechaEdicion"
@@ -245,16 +469,23 @@
       </div>
 
       <!-- Listado de botones para edición de empresa -->
-      <button 
-        type="submit"
-        *ngIf="!this.visible"
-        class="bg-[#CB9F01] text-white font-semibold rounded col-start-1 w-[60%] py-2 transition-all duration-200 ease-in-out hover:bg-[#CB9F01]/60"
-        [disabled]="this.form.invalid"
-        [class.disabled]="this.form.invalid"
-      >
-        <i class="fas fa-plus pr-2"></i>
-        Añadir producto
-      </button>
+      <div class="flex flex-col sm:py-4 py-2 items-center justify-center rounded lg:col-start-2 lg:col-span-1 sm:col-span-2 col-span-1 ">
+        <button 
+          type="submit"
+          *ngIf="!this.visible"
+          class="flex flex-row items-center justify-center w-[60%] bg-green-500 text-white font-semibold py-2 transition-all duration-200 ease-in-out hover:bg-green-800"
+          [disabled]="this.form.invalid"
+          [class.disabled]="this.form.invalid"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+          </svg>
+          <p class="px-2 text-sm">
+            Añadir producto
+          </p>
+        </button>
+      </div>
+      
       <button 
         (click)="habilitarFormulario()"
         *ngIf="this.visible && !this.able"
@@ -291,6 +522,7 @@
         <i class="fas fa-plus pr-2"></i>
         Regresar
       </button>
+
     </form>
   </section>
 
@@ -400,30 +632,39 @@
     </table>
 
     <!-- Lista de paginacion -->
-    <div>
+    <div 
+      *ngIf="listEntity.length > 0"
+    >
       <p class="text-[#242422] text-sm font-normal text-center pt-8 pb-2">Página {{currentPage + 1}} de {{totalPages}}</p>
+      <div class="flex justify-center">
+        <button 
+          (click)="previousPage()"
+          *ngIf="currentPage > 0"
+          class="hover:text-[#CB9F01]"
+        >
+          <svg class="w-10 h-10" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14 8-4 4 4 4"/>
+          </svg>
+        </button>
+        <button 
+          (click)="nextPage()"
+          [disabled]="currentPage >= listEntity.length/pageSize - 1" 
+          class="hover:text-[#CB9F01]"
+        >
+          <svg class="w-10 h-10" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m10 16 4-4-4-4"/>
+          </svg>
+        </button>
+      </div>
     </div>
-
-    <div class="flex justify-center">
-      <button 
-        (click)="previousPage()"
-        *ngIf="currentPage > 0"
-        class="hover:text-[#CB9F01]"
-      >
-        <svg class="w-10 h-10" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14 8-4 4 4 4"/>
-        </svg>
-      </button>
-      <button 
-        (click)="nextPage()"
-        [disabled]="currentPage >= listEntity.length/pageSize - 1" 
-        class="hover:text-[#CB9F01]"
-      >
-        <svg class="w-10 h-10" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m10 16 4-4-4-4"/>
-        </svg>
-      </button>
-    </div>
+    <!-- Si no hay empresas registradas -->
+    <div 
+      *ngIf="listEntity.length === 0"
+      class="flex flex-col items-center justify-center py-12"
+    >
+      <p class="text-[#242422] md:text-md text-sm font-semibold">No hay empresas registradas</p>
+      <p class="text-[#242422] md:text-sm text-xs font-normal">Por favor, registre una empresa para visualizarla aquí.</p>
+    </div>   
   </section>
 
 </main>
