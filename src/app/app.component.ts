@@ -4,10 +4,11 @@ import { Entity } from './core/models/entity.interface';
 import { NgFor, NgIf } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import * as data from './data/entities.json';
+import { NavbarComponent } from './components/navbar/navbar.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [FooterComponent, NgFor, NgIf, ReactiveFormsModule],
+  imports: [FooterComponent, NgFor, NgIf, ReactiveFormsModule, NavbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
