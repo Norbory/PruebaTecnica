@@ -1,4 +1,5 @@
 export interface Entity {
+    Id: number;
     Razon: string;
     NombreEmpresa: string;
     IdentificacionFiscal : number;

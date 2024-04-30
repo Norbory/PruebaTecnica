@@ -39,7 +39,7 @@
           Empresas registradas
         </h3>
         <h2 class="text-[#302E39] text-2xl font-bold">
-          {{ empresas.length }}
+          {{ listEntity.length }}
         </h2>
         <h3 class="text-[#242422] text-sm font-semibold text-wrap">
           <strong class="text-[#004e35]">+ 16%</strong> último mes
@@ -266,7 +266,7 @@
         Habilitar edición
       </button>
       <button 
-        (click)="editarEmpresa()"
+        (click)="editarEmpresa(selectedEmpresa.Id)"
         *ngIf="this.visible && this.able"
         class="bg-[#004e35] text-white font-semibold rounded col-start-1 w-[60%] py-2 transition-all duration-200 ease-in-out hover:bg-[#004e35]/60"
         [disabled]="this.form.invalid"
@@ -276,7 +276,7 @@
         Editar empresa
       </button>
       <button 
-        (click)="eliminarEmpresa()"
+        (click)="eliminarEmpresa(selectedEmpresa.Id)"
         *ngIf="this.visible && this.able"
         class="bg-[#760000] text-white font-semibold rounded col-start-1 w-[60%] py-2 transition-all duration-200 ease-in-out hover:bg-[#760000]/60"
       >
@@ -291,9 +291,7 @@
         <i class="fas fa-plus pr-2"></i>
         Regresar
       </button>
-
     </form>
-    
   </section>
 
   <!-- Listado de empresas -->
@@ -306,6 +304,7 @@
       
     </div>
     <table class="table-auto border-spacing-y-2.5 border-collapse border border-slate-400">
+      <!-- Encabezados de tabla -->
       <thead class="thead-border">
         <tr class="text-left md:text-md text-sm text-[#ead949] font-bold bg-[#302E39]">
           <th class="py-2 border border-e-slate-300">
@@ -369,22 +368,24 @@
           </th>
         </tr>
       </thead>
-
+      <!-- Cuerpo de tabla -->
       <tbody
         class="text-wrap text-[#636265] md:text-md text-sm font-semibold tracking-wide text-center"
-        *ngFor="let empresa of empresas.slice(currentPage*pageSize, currentPage*pageSize+pageSize)"
+        *ngFor="let entity of listEntity"
       >
-        <tr class="border border-e-slate-300 border-">
-          <td class="py-8 ">{{ empresa.NombreEmpresa }}</td>
-          <td class="xl:table-cell hidden ">{{ empresa.NumeroTelefono }}</td>
-          <td class="lg:table-cell hidden ">{{ empresa.CorreoElectronico }}</td>
-          <!-- <td>{{ empresa.SitioWeb }}</td> -->
-          <td class="">{{ empresa.Pais }}</td>
-          <td class="md:table-cell hidden ">{{ empresa.Facturacion }}</td>
-          <td class="sm:table-cell hidden ">{{empresa.FechaEdicion.substring(0, 10)}}</td>
+        <tr
+          *ngIf="entity.NombreEmpresa !== '' && entity.NombreEmpresa !== null"
+          class="border border-e-slate-300"
+        >
+          <td class="py-8 ">{{ entity.NombreEmpresa }}</td>
+          <td class="xl:table-cell hidden ">{{ entity.NumeroTelefono }}</td>
+          <td class="lg:table-cell hidden ">{{ entity.CorreoElectronico }}</td>
+          <td class="">{{ entity.Pais }}</td>
+          <td class="md:table-cell hidden ">{{ entity.Facturacion }}</td>
+          <td class="sm:table-cell hidden ">{{ entity.FechaEdicion }}</td>
           <td class="self-center">
             <a
-              (click)="verEmpresa(empresa)" 
+                (click)="verEmpresa(entity.Id)" 
               href="#detalles-empresa" 
               class="flex hover:text-[#CB9F01] justify-center transition-all duration-200 ease-in-out"
             >
@@ -415,7 +416,7 @@
       </button>
       <button 
         (click)="nextPage()"
-        [disabled]="currentPage >= empresas.length/pageSize - 1" 
+        [disabled]="currentPage >= listEntity.length/pageSize - 1" 
         class="hover:text-[#CB9F01]"
       >
         <svg class="w-10 h-10" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -426,4 +427,5 @@
   </section>
 
 </main>
+
 <app-footer></app-footer>

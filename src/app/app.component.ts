@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FooterComponent } from './components/footer/footer.component';
-import { Entity } from './core/models/entity.interface';
+import { Entity } from './core/types/entity';
 import { NgFor, NgIf } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import * as data from './data/entities.json';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { EmpresaService } from './core/services/empresa.service';
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -12,12 +13,30 @@ import { NavbarComponent } from './components/navbar/navbar.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
-  constructor() { }
-  title = 'Proveedores';
+export class AppComponent implements OnInit{
+
+  constructor(private _empresaService: EmpresaService) { }
+
+  ngOnInit() {
+    this.getAllEmpresas();
+  }
+
   listEntity: Entity[] = [];
+
+  // Obtener todas las empresas de la base de datos
+  getAllEmpresas() {
+    this._empresaService.getAllEmpresas().subscribe(
+      response => {
+        this.listEntity = response;
+        console.log(this.listEntity);
+        console.log(this.totalPages);
+      },
+      error => {
+        console.log(error);
+    });
+  }
+
   selectedEmpresa = {} as Entity;
-  selectedIndex: number = 0;
   visible: boolean = false;
   able: boolean = false;
   submitted: boolean = false;
@@ -26,9 +45,7 @@ export class AppComponent {
   pageSize = 3;
   currentPage = 0;
 
-  empresas = (data as any).default;
-
-  totalPages = Math.round(this.empresas.length / this.pageSize);
+  totalPages = this.listEntity.length / this.pageSize;
 
   form = new FormGroup({
     Razon: new FormControl('', Validators.required),
@@ -43,43 +60,10 @@ export class AppComponent {
     FechaEdicion: new FormControl(new Date(), Validators.required),
   });
 
-  nextPage() {
-    this.currentPage++;
-  }
-  
-  previousPage() {
-    this.currentPage--;
-  }
-
-  verEmpresa(empresa: Entity) {
-    this.visible  = true;
-    if (this.able) {
-      this.able = false;
-    }
-    this.selectedEmpresa = empresa;
-    let dia = new Date(empresa.FechaEdicion);
-    this.form.setValue({
-      Razon: empresa.Razon,
-      NombreEmpresa: empresa.NombreEmpresa,
-      IdentificacionFiscal: empresa.IdentificacionFiscal,
-      NumeroTelefono: empresa.NumeroTelefono,
-      CorreoElectronico: empresa.CorreoElectronico,
-      SitioWeb: empresa.SitioWeb,
-      Direccion: empresa.Direccion,
-      Pais: empresa.Pais,
-      Facturacion: empresa.Facturacion,
-      FechaEdicion: dia,
-    });
-    this.form.disable();
-  }
-
-  habilitarFormulario() {
-    this.able = true;
-    this.form.enable();
-  }
-
+  // Petición para obtener crear una empresa
   agregarEmpresa() {
     const empresa: Entity = {
+      Id: 0,
       Razon: this.form.value.Razon || 'Razon',
       NombreEmpresa: this.form.value.NombreEmpresa || 'NombreEmpresa',
       IdentificacionFiscal: this.form.value.IdentificacionFiscal || 0,
@@ -91,15 +75,57 @@ export class AppComponent {
       Facturacion: this.form.value.Facturacion || 0,
       FechaEdicion: this.form.value.FechaEdicion || new Date(),
     };
-    this.empresas.push(empresa);
-    setTimeout(() => {
-      this.submitted = false;
-    }, 3000);
-    this.submitted = true;
-    this.form.reset();
+    this._empresaService.createEmpresa(empresa).subscribe(
+      response => {
+        this.listEntity.push(response);
+        setTimeout(() => {
+          this.submitted = false;
+        }, 3000);
+        this.submitted = true;
+        this.form.reset();
+      },
+      error => {
+        console.log(error);
+    });  
   }
 
-  editarEmpresa() {
+  // Petición para obtener una empresa por id
+  verEmpresa(id: number) {
+    this._empresaService.getEmpresaById(id).subscribe(
+      response => {
+        this.selectedEmpresa = response;
+        let dia = new Date(response.FechaEdicion);
+        this.form.setValue({
+          Razon: response.Razon,
+          NombreEmpresa: response.NombreEmpresa,
+          IdentificacionFiscal: response.IdentificacionFiscal,
+          NumeroTelefono: response.NumeroTelefono,
+          CorreoElectronico: response.CorreoElectronico,
+          SitioWeb: response.SitioWeb,
+          Direccion: response.Direccion,
+          Pais: response.Pais,
+          Facturacion: response.Facturacion,
+          FechaEdicion: dia,
+        });
+        this.visible  = true;
+        if (this.able) {
+          this.able = false;
+        }
+        this.form.disable();
+      },
+      error => {
+        console.log(error);
+    });
+  }
+
+  // Habilitar formulario para editar empresa
+  habilitarFormulario() {
+    this.able = true;
+    this.form.enable();
+  }
+
+  // Petición para actualizar una empresa
+  editarEmpresa(index: number) {
     if (this.selectedEmpresa) {
       const empresa: Entity = {
         Razon: this.form.value.Razon || 'Razon',
@@ -112,32 +138,43 @@ export class AppComponent {
         Pais: this.form.value.Pais || 'Pais',
         Facturacion: this.form.value.Facturacion || 0,
         FechaEdicion: this.form.value.FechaEdicion || new Date(),
+        Id: 0
       };
-      let index = this.empresas.indexOf(this.selectedEmpresa);
-      this.empresas[index] = empresa;
-      this.able = false;
-      setTimeout(() => {
-        this.edited = false;
-      }, 3000);
-      this.edited = true;
-      this.visible = false;
-      this.form.reset();
+      this._empresaService.updateEmpresa(index, empresa).subscribe(
+        response => {
+          this.listEntity[index] = response;
+          this.able = false;
+          setTimeout(() => {
+            this.edited = false;
+          }, 3000);
+          this.edited = true;
+          this.visible = false;
+          this.form.reset();
+        },
+        error => {
+          console.log(error);
+      });
     } else {
       alert('No se encontró la empresa');
     }
   }
 
-  eliminarEmpresa() {
+  eliminarEmpresa(index: number) {
     if (this.selectedEmpresa) {
-      let index = this.empresas.indexOf(this.selectedEmpresa);
-      this.empresas.splice(index, 1);
-      this.able = false;
-      setTimeout(() => {
-        this.deleted = false;
-      }, 3000);
-      this.deleted = true;
-      this.visible = false;
-      this.form.reset();
+      this._empresaService.deleteEmpresa(index).subscribe(
+        response => {
+          this.listEntity.splice(index, 1);
+          this.able = false;
+          setTimeout(() => {
+            this.deleted = false;
+          }, 3000);
+          this.deleted = true;
+          this.visible = false;
+          this.form.reset();
+        },
+        error => {
+          console.log(error);
+      });
     } else {
       alert('No se encontró la empresa');
     }
@@ -158,5 +195,13 @@ export class AppComponent {
     if (fila) {
       fila.scrollIntoView({ behavior: 'smooth' });
     }
+  }
+
+  nextPage() {
+    this.currentPage++;
+  }
+  
+  previousPage() {
+    this.currentPage--;
   }
 }
