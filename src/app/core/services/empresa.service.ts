@@ -40,4 +40,9 @@ export class EmpresaService {
   getEmpresaByNombre(nombre: string): Observable<any> {
     return this.http.get(`${this.AppUrl + this.ApiUrl + 'buscar/' + nombre}`);
   }
+
+  // Listar empresas por campo
+  getEmpresasByField(campo: string): Observable<any> {
+    return this.http.get(`${this.AppUrl + this.ApiUrl + 'ordenar/' + campo}`);
+  }
 }

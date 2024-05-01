@@ -1,24 +1,24 @@
-<nav class="px-12 py-4 sm:flex sm:items-center sm:justify-between bg-[#302E39]/30 h-[8vh]">
+<nav class="px-12 py-4 sm:flex sm:items-center sm:justify-between bg-[#302E39] h-[8vh]">
     <section class="flex justify-between">
-    <img src="../../../assets/hlogo.png" class="h-6" alt="CheckSupply"/>
+    <img src="../../../assets/hlogo.png" class="sm:flex hidden h-6" alt="CheckSupply"/>
     <button class="text-[#BBBABC] sm:hidden" (click)="toggleMenu()">
         <svg class="w-6 h-6 fill-current" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 50 50">
         <path d="M 0 7.5 L 0 12.5 L 50 12.5 L 50 7.5 Z M 0 22.5 L 0 27.5 L 50 27.5 L 50 22.5 Z M 0 37.5 L 0 42.5 L 50 42.5 L 50 37.5 Z"></path>
         </svg>
     </button>
     </section>
-    <div [ngClass]="{'hidden':!menu, 'flex':menu}" class="sm:flex flex-col items-start mt-3 gap-2 sm:flex-row sm:m-0 transition-all ease-in-out duration-200">
+    <div [ngClass]="{'hidden':!menu, 'flex':menu}" class="sm:flex flex-col items-start mt-3 gap-2 sm:flex-row sm:m-0 transition-all ease-in-out duration-200 sm:bg-[#302E39] bg-[#BBBABC]">
     <a
         href="#detalles-empresa"
         (click)="toggleMenu()"
-        class="text-[#BBBABC] hover:bg-[#ead949] w-full text-left rounded hover:text-[#242422] py-2 px-4 mx-8 font-bold text-sm"
+        class="text-[#302E39] sm:text-[#BBBABC] sm:hover:text-[#302E39] hover:bg-[#ead949] w-full text-left rounded py-2 px-4 mx-8 font-bold text-sm"
     >
         AGREGAR
     </a>
     <a
         href="#Companies"
         (click)="toggleMenu()"
-        class="text-[#BBBABC] hover:bg-[#ead949] w-full text-left rounded hover:text-[#242422] py-2 px-4 mx-8 font-bold text-sm"
+        class="text-[#302E39] sm:text-[#BBBABC] sm:hover:text-[#302E39] hover:bg-[#ead949] w-full text-left rounded py-2 px-4 mx-8 font-bold text-sm"
     >
         EMPRESAS
     </a>

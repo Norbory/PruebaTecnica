@@ -5,32 +5,63 @@
   <!-- Seccion de busqueda principal -->
   <section class="h-[92vh] flex flex-col justify-center items-center">
     <h1 class="font-bold md:text-6xl text-4xl text-[#ead949]">CHECKSUPPLY</h1>
-    <h3 class="font-semibold text-[#FDFBF6] md:text-2xl pb-2">Your online safety tool</h3>
+    <h3 class="font-semibold text-[#FDFBF6] md:text-2xl pb-2">Herramienta de seguridad virtual</h3>
     <p class="font-normal text-[#BBBABC] md:max-w-[70%] max-w-[90%] text-center md:py-10 py-6 md:text-lg text-sm">
-      Effortlessly search for any enterprise's presence in our database for potential ties to malicious activities. Simply input the enterprise name or domain, and receive immediate results.
+      Buscar sin esfuerzo la presencia de cualquier empresa en nuestra base de datos en busca de posibles vínculos con actividades maliciosas. Simplemente ingresa el nombre de la empresa o el dominio y recibirás resultados inmediatos.
     </p>
     <div class=" relative md:w-[70%] w-[90%] flex flex-col sm:py-4 py-2">
       <label 
         for="filtername" 
-        class="text-[#FDFBF6] px-6 py-2 md:text-lg text-sm"
+        class="text-[#FDFBF6] px-6 py-2 md:text-lg text-xs"
       >
-        Search if entity is already listed
+        Busca si la empresa que buscas está en nuestra base de datos
       </label>
       <input
-        id="filtername"
         type="text" 
         placeholder="Colocar nombre de empresa"
         class="relative bg-[#FDFBF6] rounded-full py-4 px-6 text-[#242422] focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
         autocomplete="off"
-        name="filtername"
-        [(ngModel)]= "filtername"
+        name="EmpresaBuscada"
+        [(ngModel)]="EmpresaBuscada"
+        (keyup.enter)="buscarEmpresaPorNombre(EmpresaBuscada)"
       >
-      <a class="absolute sm:bottom-8 right-8 bottom-6 cursor-pointer">
+      <a
+        *ngIf="!screening"
+        (click)="buscarEmpresaPorNombre(EmpresaBuscada)"
+        class="absolute sm:bottom-8 right-8 bottom-6 cursor-pointer transition-all duration-200 ease-in-out hover:scale-110"
+      >
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
           <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
         </svg>        
       </a>
+
+      <div
+        *ngIf="screening"
+        class="flex justify-center items-center absolute sm:bottom-6 right-8 bottom-4 transition-all duration-200 ease-in-out bg-green-800 w-40 text-[#FDFBF6] font-bold py-2"
+      >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+      </svg>
+      <p class="text-md px-2">Encontrada</p>      
+      </div>
+      
     </div>
+    <p class="font-normal text-[#BBBABC] md:max-w-[70%] max-w-[90%] text-center md:text-sm text-xs">
+      Escribe de manera correcta el nombre de la empresa que deseas buscar en nuestra base de datos y realizar screening.
+    </p>
+    <p class="font-normal text-[#BBBABC] md:max-w-[70%] max-w-[90%] text-center md:text-sm text-xs">
+      Para entender más haz click 
+      <a class="underline text-blue-500" href="#info">aqui</a>
+    </p>
+    <a
+      class="bg-[#CB9F01] text-[#FDFBF6] font-semibold my-4 py-5 px-8 rounded-full mt-4 transition-all duration-200 ease-in-out hover:bg-[#CB9F01]/60"
+      [class.disabled]="!screening"
+      [class.cursor-pointer]="screening"
+    >
+      Realizar Screening
+    </a>
+
+    <!-- {{ EmpresaBuscada }} -->
   </section>
 
   <!-- Barra de estadísticas -->
@@ -576,13 +607,160 @@
     class="sm:w-[85%] w-full bg-[#FDFBF6] p-8 rounded-2xl flex flex-col sm:my-12 my-8 transition-all ease-in-out duration-200"
   >
     <h3 class="font-semibold text-[#242422] text-xl py-4 px-2">All Entities</h3>
-    <div class="flex justify-end">
-      <input 
-        type="text"
-        placeholder="Buscar empresa por nombre"
-        class="border border-yellow-500 w-1/6 p-2 my-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
-        [(ngModel)]="filtername"
+    <div class="relative flex justify-between items-center">
+      <a
+        (click)="despliegaOpcionesOrden()"
+        class="hidden pl-2 cursor-pointer md:flex items-center justify-center text-[#282828] font-semibold rounded py-2 transition-all duration-200 ease-in-out"
       >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />
+        </svg>       
+        <p
+          class="text-[#242422] text-md font-semibold pl-1"
+        >
+          Ordernar por
+        </p>
+      </a>
+      <div
+          *ngIf="this.desplegarOrden"
+          class="absolute bg-[#FDFBF6] rounded-lg shadow-lg p-2 w-40 top-0 border border-slate-400"
+        >
+          <div
+            class="flex flex-col items-center justify-center"
+          >
+            <a
+              class="cursor-pointer hover:bg-yellow-500 p-4 w-full"
+              (click)="changeOptionOrden('NombreEmpresa')"
+            >
+              <p
+                class="text-[#242422] text-md font-semibold"
+              >
+                Nombre
+              </p>
+            </a>
+            <a
+              class="cursor-pointer hover:bg-yellow-500 p-4 w-full"
+              (click)="changeOptionOrden('NumeroTelefono')"
+            >
+              <p
+                class="text-[#242422] text-md font-semibold"
+              >
+                Telefono
+              </p>
+            </a>
+            <a
+              class="cursor-pointer hover:bg-yellow-500 p-4 w-full"
+              (click)="changeOptionOrden('Pais')"
+            >
+              <p
+                class="text-[#242422] text-md font-semibold"
+              >
+                País
+              </p>
+            </a>
+            <a
+              class="cursor-pointer hover:bg-yellow-500 p-4 w-full"
+              (click)="changeOptionOrden('SitioWeb')"
+            >
+              <p
+                class="text-[#242422] text-md font-semibold"
+              >
+                Web
+              </p>
+            </a>
+            <a
+              class="cursor-pointer hover:bg-yellow-500 p-4 w-full"
+              (click)="changeOptionOrden('Facturacion')"
+            >
+              <p
+                class="text-[#242422] text-md font-semibold"
+              >
+                Facturación
+              </p>
+            </a>
+            <a
+              class="cursor-pointer hover:bg-yellow-500 p-4 w-full"
+              (click)="changeOptionOrden('FechaEdicion')"
+            >
+              <p
+                class="text-[#242422] text-md font-semibold"
+              >
+                Fecha
+              </p>
+            </a>
+          </div>
+        </div>
+      <div class="relative flex flex-row items-center">
+        <a
+          (click)="despliegaOpciones()"
+          class="cursor-pointer"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
+          </svg>  
+        </a>
+        <div
+          *ngIf="this.desplegar"
+          class="absolute bg-[#FDFBF6] rounded-lg shadow-lg p-2 w-40 top-0 border border-slate-400"
+        >
+          <div
+            class="flex flex-col items-center justify-center"
+          >
+            <a
+              class="cursor-pointer hover:bg-yellow-500 p-4 w-full"
+              (click)="changeOption('nombre')"
+            >
+              <p
+                class="text-[#242422] text-md font-semibold"
+              >
+                Nombre
+              </p>
+            </a>
+            <a
+              class="cursor-pointer hover:bg-yellow-500 p-4 w-full"
+              (click)="changeOption('pais')"
+            >
+              <p
+                class="text-[#242422] text-md font-semibold"
+              >
+                País
+              </p>
+            </a>
+            <a
+              class="cursor-pointer hover:bg-yellow-500 p-4 w-full"
+              (click)="changeOption('telefono')"
+            >
+              <p
+                class="text-[#242422] text-md font-semibold"
+              >
+                Telefono
+              </p>
+            </a>
+          </div>
+        </div>
+        
+        <input 
+          type="text"
+          placeholder="Buscar por nombre"
+          class="border border-yellow-500  p-2 my-4 mx-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          *ngIf="this.opcionFilter === 'nombre'"
+          [(ngModel)]="filtername"
+        >
+        <input 
+          type="text"
+          placeholder="Buscar por pais"
+          class="border border-yellow-500  p-2 my-4 mx-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          *ngIf="this.opcionFilter === 'pais'"
+          [(ngModel)]="filterpais"
+        >
+        <input 
+          type="text"
+          placeholder="Buscar por telefono"
+          class="border border-yellow-500  p-2 my-4 mx-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          *ngIf="this.opcionFilter === 'telefono'"
+          [(ngModel)]="filterTelefono"
+        >
+      </div>      
     </div>
     <table class="table-auto border-spacing-y-2.5 border-collapse border border-slate-400">
       <!-- Encabezados de tabla -->
@@ -652,7 +830,7 @@
       <!-- Cuerpo de tabla -->
       <tbody
         class="text-wrap text-[#636265] md:text-md text-sm font-semibold tracking-wide text-center transition-all"
-        *ngFor="let entity of listEntity | namePipe : filtername"
+        *ngFor="let entity of listEntity | namePipe : filtername | paisPipe: filterpais | telefonoPipe: filterTelefono"
       >
       <!-- .slice((currentPage-1)*pageSize, (currentPage-1)*pageSize+pageSize) -->
         <tr
@@ -736,6 +914,26 @@
     </div>   
   </section>
 
+  <div id="info" class="p-4 sm:w-[85%] w-full mb-20">
+    <h2 class="md:text-4xl text-2xl font-bold mb-2 text-[#FDFBF6] py-4">Información adicional</h2>
+    <h2 class="md:text-xl text-lg font-bold mb-2 text-[#FDFBF6]">¿Cúal es el objetivo de la página?</h2>
+    <p class="text-[#BBBABC] md:text-lg text-md pb-4">
+      El objetivo de esta página es mostrar una lista de empresas registradas en una base de datos. La página permite a los usuarios ver los detalles de cada empresa, así como agregar, editar y eliminar empresas de la base de datos.
+      Además, la página incluye una función de búsqueda y filtrado para ayudar a los usuarios a encontrar empresas específicas en la lista.
+      Por último, la página permite realizar un screening de las empresas registradas para identificar aquellas que están registradas en listas de alto riesgo.
+    </p>
+    <h2 class="md:text-xl text-lg font-bold mb-2 text-[#FDFBF6]">¿Qué es el Screening?</h2>
+    <p class="text-[#BBBABC] md:text-lg text-md">
+      Tras tener la información de una empresa, se puede realizar un cruce automático de los datos de la empresa con listas de alto riesgo. Estas listas contienen información sobre empresas que han sido sancionadas o que están bajo investigación por actividades ilícitas.
+    </p>
+  </div>
+
 </main>
+
+<a href="#" class="bg-[#CB9F01] w-12 h-12 rounded-full fixed bottom-20 right-9 flex items-center justify-center cursor-pointer">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
+  </svg>  
+</a>
 
 <app-footer></app-footer>

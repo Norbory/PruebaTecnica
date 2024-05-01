@@ -6,16 +6,21 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators, FormsModule } 
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { EmpresaService } from './core/services/empresa.service';
 import { NamePipePipe } from "./core/pipes/name-pipe.pipe";
+import { PaisPipePipe } from "./core/pipes/pais-pipe.pipe";
+import { TelefonoPipePipe } from "./core/pipes/telefono-pipe.pipe";
 
 @Component({
     selector: 'app-root',
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [FooterComponent, NgFor, NgIf, ReactiveFormsModule, NavbarComponent, NamePipePipe, FormsModule]
+    imports: [FooterComponent, NgFor, NgIf, ReactiveFormsModule, NavbarComponent, NamePipePipe, FormsModule, PaisPipePipe, TelefonoPipePipe]
 })
 export class AppComponent implements OnInit{
-  filtername: any = '';
+  filtername: string = '';
+  filterpais: string = '';
+  filterTelefono: string = '';
+  EmpresaBuscada: string = '';
 
   constructor(private _empresaService: EmpresaService) { }
 
@@ -27,6 +32,11 @@ export class AppComponent implements OnInit{
   pageSize = 5;
   currentPage = 1;
   totalPages = 0;
+  opcionFilter: string = 'nombre';
+  desplegar: boolean = false;
+  opcionOrden: string = '';
+  desplegarOrden: boolean = false;
+  screening: boolean = false
 
   // Obtener todas las empresas de la base de datos
   getAllEmpresas() {
@@ -178,11 +188,19 @@ export class AppComponent implements OnInit{
       response => {
         if (response == null) {
           this.invitacion = true;
+          this.screening = false;
+          this.selectedEmpresa = {} as Entity;
+          console.log('No se encontró la empresa');
           return;
         }
-        this.verEmpresa(response.id);
+        this.screening = true;
+        this.invitacion = false;
+        this.selectedEmpresa = response;
       },
       error => {
+        this.invitacion = true;
+        this.screening = false;
+        this.selectedEmpresa = {} as Entity;
         console.log(error);
     });
   }
@@ -192,16 +210,6 @@ export class AppComponent implements OnInit{
     this.able = false;
     this.form.enable();
     this.form.reset();
-  }
-
-  buscarEmpresa(nombre: string) {
-    // Obtén la fila de la tabla con el nombre de la empresa
-    let fila = document.getElementById("Empresa 1");
-  
-    // Haz scroll hasta la fila
-    if (fila) {
-      fila.scrollIntoView({ behavior: 'smooth' });
-    }
   }
 
   nextPage() {
@@ -215,4 +223,33 @@ export class AppComponent implements OnInit{
   goSelectedPage(page: number) {
     this.currentPage = page;
   }
+
+  // Cambiar opción de filtrado
+  changeOption(option: string) {
+    this.opcionFilter = option;
+    this.desplegar = !this.desplegar;
+  }
+  
+  despliegaOpciones() {
+    this.desplegar = !this.desplegar;
+  }
+
+  despliegaOpcionesOrden() {
+    this.desplegarOrden = !this.desplegarOrden;
+  }
+
+  // Cambiar opción de ordenado
+  changeOptionOrden(option: string) {
+    this.opcionOrden = option;
+    this.desplegarOrden = !this.desplegarOrden;
+    this._empresaService.getEmpresasByField(option).subscribe(
+      response => {
+        this.listEntity = response;
+      },
+      error => {
+        console.log(error);
+    });
+  }
+
+  
 }

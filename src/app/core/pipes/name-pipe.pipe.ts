@@ -8,17 +8,24 @@ import { Entity } from '../types/entity';
 export class NamePipePipe implements PipeTransform {
 
   transform(value: Entity[], args: string): any {
+    // Crear un array vacío para almacenar los resultados
     const resultado = [];
-    for (const nombre of value) {
-      let nombreSinEspacios = nombre.nombreEmpresa.replace(' ', '');
-      if (nombreSinEspacios.indexOf(args) > -1 || 
-          nombre.nombreEmpresa.toLowerCase().indexOf(args) > -1 ||
-          nombre.nombreEmpresa.toUpperCase().indexOf(args) > -1 ||
-          nombre.nombreEmpresa.indexOf(args) > -1) {
-        resultado.push(nombre);
+    for(const empresa of value) {
+      // Normalizar el argumento de búsqueda
+      const argsSinEspacios = args.replace(' ', '');
+      const argsSinTildes = argsSinEspacios.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const argsMinusculas = argsSinTildes.toLowerCase();
+
+      // Normalizar el nombre de las empresas
+      const nombreSinEspacios = empresa.nombreEmpresa.replace(' ', '');
+      const nombreSinTildes = nombreSinEspacios.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const nombreNormalizado = nombreSinTildes.toLowerCase();
+
+      // Comprobar si el nombre de la empresa incluye el argumento de búsqueda
+      if(nombreNormalizado.includes(argsMinusculas)) {
+        resultado.push(empresa);
       }
     }
-
     return resultado;
   }
 
