@@ -38,6 +38,19 @@ export class AppComponent implements OnInit{
   desplegarOrden: boolean = false;
   screening: boolean = false
 
+  // Local storage
+  // Este servira para los usuarios registrados para guardar su información y token
+  grabarLocalStorage() {
+    let email: string = "string@hotmail.com";
+    let password: string = "str1_ng";
+    let twoFactorCode: string = "123456";
+    let twoFactorRecoveryCode: string = "123456";
+    
+    localStorage.setItem('email', email);
+    localStorage.setItem('password', password);
+    localStorage.setItem('twoFactorCode', twoFactorCode);
+  }
+
   // Obtener todas las empresas de la base de datos
   getAllEmpresas() {
     this._empresaService.getAllEmpresas().subscribe(
@@ -58,6 +71,7 @@ export class AppComponent implements OnInit{
   edited: boolean = false;
   deleted: boolean = false;
   invitacion: boolean = false;
+  status: number = 0;
 
   form = new FormGroup({
     id: new FormControl(0),
@@ -91,10 +105,15 @@ export class AppComponent implements OnInit{
     this._empresaService.createEmpresa(empresa).subscribe(
       response => {
         this.listEntity.push(response);
+        setTimeout(() => {
+          this.submitted = false;
+        }, 3000);
+        this.invitacion = false;
         this.submitted = true;
         this.form.reset();
       },
       error => {
+        this.invitacion = true;
         console.log(error);
     });  
   }
@@ -157,11 +176,13 @@ export class AppComponent implements OnInit{
             setTimeout(() => {
               this.edited = false;
             }, 3000);
+            this.invitacion = false;
             this.edited = true;
             this.visible = false;
             this.form.reset();
         },
         error => {
+          this.invitacion = true;
           console.log(error);
       });
   }
@@ -173,11 +194,13 @@ export class AppComponent implements OnInit{
         setTimeout(() => {
           this.deleted = false;
         }, 3000);
+        this.invitacion = false;
         this.deleted = true;
         this.visible = false;
         this.form.reset();
       },
       error => {
+        this.invitacion = true;
         console.log(error);
     });
   }
@@ -187,17 +210,22 @@ export class AppComponent implements OnInit{
     this._empresaService.getEmpresaByNombre(nombre).subscribe(
       response => {
         if (response == null) {
+          this.status = 2;
           this.invitacion = true;
           this.screening = false;
           this.selectedEmpresa = {} as Entity;
           console.log('No se encontró la empresa');
           return;
         }
+        this.status = 1;
         this.screening = true;
         this.invitacion = false;
         this.selectedEmpresa = response;
       },
       error => {
+        this.status = 2;
+        const buscador = document.getElementById('buscador') as HTMLInputElement;
+        buscador.style.border = '2px solid red';
         this.invitacion = true;
         this.screening = false;
         this.selectedEmpresa = {} as Entity;
