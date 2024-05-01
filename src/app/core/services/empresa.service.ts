@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class EmpresaService {
   private AppUrl = 'https://localhost:7154/';
-  private ApiUrl = 'api/Empresa';
+  private ApiUrl = 'api/Empresa/';
 
   constructor(private http: HttpClient) { }
 
@@ -18,7 +18,7 @@ export class EmpresaService {
 
   //Obtener una empresa por id
   getEmpresaById(id: number): Observable<any> {
-    return this.http.get(`${this.AppUrl + this.ApiUrl}/${id}`);
+    return this.http.get(`${this.AppUrl + this.ApiUrl + id}`);
   }
 
   //Crear una empresa
@@ -27,12 +27,17 @@ export class EmpresaService {
   }
 
   //Actualizar una empresa
-  updateEmpresa(id: number, empresa: any): Observable<any> {
-    return this.http.put(`${this.AppUrl + this.ApiUrl}/${id}`, empresa);
+  updateEmpresa(empresa: any): Observable<any> {
+    return this.http.put(`${this.AppUrl + this.ApiUrl}`, empresa);
   }
 
   //Eliminar una empresa
   deleteEmpresa(id: number): Observable<any> {
-    return this.http.delete(`${this.AppUrl + this.ApiUrl}/${id}`);
+    return this.http.delete(this.AppUrl + this.ApiUrl + id);
+  }
+
+  //Obtener empresa por nombre
+  getEmpresaByNombre(nombre: string): Observable<any> {
+    return this.http.get(`${this.AppUrl + this.ApiUrl + 'buscar/' + nombre}`);
   }
 }

@@ -1,13 +1,13 @@
 export interface Entity {
-    Id: number;
-    Razon: string;
-    NombreEmpresa: string;
-    IdentificacionFiscal : number;
-    NumeroTelefono: number;
-    CorreoElectronico: string;
-    SitioWeb: string;
-    Direccion: string;
-    Pais: string;
-    Facturacion: number;
-    FechaEdicion: Date;
+    id: number;
+    razon: string;
+    nombreEmpresa: string;
+    identificacionFiscal : number;
+    numeroTelefono: number;
+    correoElectronico: string;
+    sitioWeb: string;
+    direccion: string;
+    pais: string;
+    facturacion: number;
+    fechaEdicion: Date;
 }
