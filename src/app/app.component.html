@@ -6,7 +6,7 @@
   <section class="h-[92vh] flex flex-col justify-center items-center">
     <h1 class="font-bold md:text-6xl text-4xl text-[#ead949]">CHECKSUPPLY</h1>
     <h3 class="font-semibold text-[#FDFBF6] md:text-2xl pb-2">Herramienta de seguridad virtual</h3>
-    <p class="font-normal text-[#BBBABC] md:max-w-[70%] max-w-[90%] text-center md:py-10 py-6 md:text-lg text-sm">
+    <p class="font-normal text-[#BBBABC] md:max-w-[70%] max-w-[90%] text-center md:py-10 py-6 md:text-lg text-xs">
       Buscar sin esfuerzo la presencia de cualquier empresa en nuestra base de datos en busca de posibles vínculos con actividades maliciosas. Simplemente ingresa el nombre de la empresa o el dominio y recibirás resultados inmediatos.
     </p>
     <div class=" relative md:w-[70%] w-[90%] flex flex-col sm:py-4 py-2">
@@ -46,7 +46,7 @@
       </div>
       
     </div>
-    <p class="font-normal text-[#BBBABC] md:max-w-[70%] max-w-[90%] text-center md:text-sm text-xs">
+    <p class="sm:block hidden font-normal text-[#BBBABC] md:max-w-[70%] max-w-[90%] text-center md:text-sm text-xs">
       Escribe de manera correcta el nombre de la empresa que deseas buscar en nuestra base de datos y realizar screening.
     </p>
     <p class="font-normal text-[#BBBABC] md:max-w-[70%] max-w-[90%] text-center md:text-sm text-xs">
@@ -180,7 +180,7 @@
           id="Razon"
           formControlName="Razon"
           type="text"
-          class="text-[##393937] text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          class="text-[#393937] bg-[#FDFBF6] w-[92.5%] border border-slate-500 text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
           [class.noValido]="form.controls['Razon'].invalid && (form.controls['Razon'].touched || form.controls['Razon'].dirty)"
           [class.valido]="form.controls['Razon'].valid && (form.controls['Razon'].touched || form.controls['Razon'].dirty)"
         />
@@ -212,7 +212,7 @@
           id="NombreEmpresa"
           formControlName="NombreEmpresa"
           type="text"
-          class="text-[##393937] text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          class="text-[#393937] bg-[#FDFBF6] w-[92.5%] border border-slate-500 text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
           [class.noValido]="form.controls['NombreEmpresa'].invalid && (form.controls['NombreEmpresa'].touched || form.controls['NombreEmpresa'].dirty)"
           [class.valido]="form.controls['NombreEmpresa'].valid && (form.controls['NombreEmpresa'].touched || form.controls['NombreEmpresa'].dirty)"
         />
@@ -244,7 +244,7 @@
           id="IdentificacionFiscal"
           formControlName="IdentificacionFiscal"
           type="tel"
-          class="text-[##393937] text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          class="text-[#393937] bg-[#FDFBF6] w-[92.5%] border border-slate-500 text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
           [class.noValido]="form.controls['IdentificacionFiscal'].invalid && (form.controls['IdentificacionFiscal'].touched || form.controls['IdentificacionFiscal'].dirty)"
           [class.valido]="form.controls['IdentificacionFiscal'].valid && (form.controls['IdentificacionFiscal'].touched || form.controls['IdentificacionFiscal'].dirty)"
         />
@@ -294,7 +294,7 @@
           id="NumeroTelefono"
           formControlName="NumeroTelefono"
           type="tel"
-          class="text-[##393937] text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          class="text-[#393937] bg-[#FDFBF6] w-[92.5%] border border-slate-500 text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
           [class.noValido]="form.controls['NumeroTelefono'].invalid && (form.controls['NumeroTelefono'].touched || form.controls['NumeroTelefono'].dirty)"
           [class.valido]="form.controls['NumeroTelefono'].valid && (form.controls['NumeroTelefono'].touched || form.controls['NumeroTelefono'].dirty)"
         />
@@ -344,7 +344,7 @@
           id="CorreoElectronico"
           formControlName="CorreoElectronico"
           type="email"
-          class="text-[##393937] text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          class="text-[#393937] bg-[#FDFBF6] w-[92.5%] border border-slate-500 text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
           [class.noValido]="form.controls['CorreoElectronico'].invalid && (form.controls['CorreoElectronico'].touched || form.controls['CorreoElectronico'].dirty)"
           [class.valido]="form.controls['CorreoElectronico'].valid && (form.controls['CorreoElectronico'].touched || form.controls['CorreoElectronico'].dirty)"
         />
@@ -382,7 +382,7 @@
           id="SitioWeb"
           formControlName="SitioWeb"
           type="url"
-          class="text-[##393937] text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          class="text-[#393937] bg-[#FDFBF6] w-[92.5%] border border-slate-500 text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
           [class.noValido]="form.controls['SitioWeb'].invalid && (form.controls['SitioWeb'].touched || form.controls['SitioWeb'].dirty)"
           [class.valido]="form.controls['SitioWeb'].valid && (form.controls['SitioWeb'].touched || form.controls['SitioWeb'].dirty)"
         />
@@ -420,7 +420,7 @@
           id="Direccion"
           formControlName="Direccion"
           type="text"
-          class="text-[##393937] text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          class="text-[#393937] bg-[#FDFBF6] w-[92.5%] border border-slate-500 text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
           [class.noValido]="form.controls['Direccion'].invalid && (form.controls['Direccion'].touched || form.controls['Direccion'].dirty)"
           [class.valido]="form.controls['Direccion'].valid && (form.controls['Direccion'].touched || form.controls['Direccion'].dirty)"
         />
@@ -452,7 +452,7 @@
           id="Pais"
           formControlName="Pais"
           type="text"
-          class="text-[##393937] text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          class="text-[#393937] bg-[#FDFBF6] w-[92.5%] border border-slate-500 text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
           [class.noValido]="form.controls['Pais'].invalid && (form.controls['Pais'].touched || form.controls['Pais'].dirty)"
           [class.valido]="form.controls['Pais'].valid && (form.controls['Pais'].touched || form.controls['Pais'].dirty)"
         />
@@ -484,7 +484,7 @@
           id="Facturacion"
           formControlName="Facturacion"
           type="number"
-          class="text-[##393937] text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          class="text-[#393937] bg-[#FDFBF6] w-[92.5%] border border-slate-500 text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
           [class.noValido]="form.controls['Facturacion'].invalid && (form.controls['Facturacion'].touched || form.controls['Facturacion'].dirty)"
           [class.valido]="form.controls['Facturacion'].valid && (form.controls['Facturacion'].touched || form.controls['Facturacion'].dirty)"
         />
@@ -509,7 +509,7 @@
           id="FechaEdicion"
           formControlName="FechaEdicion"
           type="date"
-          class="text-[##393937] text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          class="text-[#393937] bg-[#FDFBF6] w-[92.5%] border border-slate-500 text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
         />
       </div>
 
@@ -521,7 +521,7 @@
           id="id"
           formControlName="id"
           type="number"
-          class="text-[##393937] text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          class="text-[#393937] bg-[#FDFBF6] w-[92.5%] border border-slate-500 text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
         />
       </div>
 
@@ -561,11 +561,25 @@
     </div>
     
     <!-- Botones de edición de empresa -->
-    <div class="sm:absolute bottom-4 right-40 flex flex-wrap justify-center items-center">
+    <div class="sm:absolute bottom-4 right-6 flex flex-wrap justify-center items-center">
+      <button 
+        
+        *ngIf="this.visible && this.able"
+        class="flex flex-row items-center justify-center bg-blue-700 text-white font-semibold rounded py-2 px-8 transition-all duration-200 ease-in-out hover:bg-blue-900 w-44 mx-2"
+        [disabled]="this.form.invalid"
+        [class.disabled]="this.form.invalid"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75" />
+        </svg>
+        <p class="px-1 text-sm">
+          SCREENING
+        </p>
+      </button>
       <button 
         (click)="editarEmpresa(this.form.value.id ?? 0)"
         *ngIf="this.visible && this.able"
-        class="flex flex-row items-center justify-center bg-green-700 text-white font-semibold rounded py-2 px-8 transition-all duration-200 ease-in-out hover:bg-green-900 w-40"
+        class="flex flex-row items-center justify-center bg-green-700 text-white font-semibold rounded py-2 px-8 transition-all duration-200 ease-in-out hover:bg-green-900 w-44 md:mx-2 mx-0 md:my-0 my-2"
         [disabled]="this.form.invalid"
         [class.disabled]="this.form.invalid"
       >
@@ -579,7 +593,7 @@
       <button 
         (click)="eliminarEmpresa(this.form.value.id ?? 0)"
         *ngIf="this.visible && this.able"
-        class="flex flex-row items-center justify-center bg-red-500 text-white font-semibold rounded py-2 px-8 transition-all duration-200 ease-in-out hover:bg-red-800 w-40"
+        class="flex flex-row items-center justify-center bg-red-500 text-white font-semibold rounded py-2 px-8 transition-all duration-200 ease-in-out hover:bg-red-800 w-44 mx-2"
       >
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
           <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
@@ -802,12 +816,10 @@
           </th>
           
           <th class="md:table-cell hidden border border-e-slate-300">
-            <div class="flex justify-center">
-              <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                <path fill-rule="evenodd" d="M7 6a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-2v-4a3 3 0 0 0-3-3H7V6Z" clip-rule="evenodd"/>
-                <path fill-rule="evenodd" d="M2 11a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-7Zm7.5 1a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Z" clip-rule="evenodd"/>
-                <path d="M10.5 14.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/>
-              </svg>
+            <div class="flex justify-center items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              </svg>              
               <p class="pl-1 items-center">Facturación anual</p>              
             </div>
           </th>
