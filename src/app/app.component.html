@@ -21,7 +21,6 @@
         type="text" 
         placeholder="Colocar nombre de empresa"
         class="relative bg-[#FDFBF6] rounded-full py-4 px-6 text-[#242422] focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
-        autocomplete="off"
         name="EmpresaBuscada"
         [(ngModel)]="EmpresaBuscada"
         (change)="this.status = 0"
@@ -36,25 +35,25 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
         </svg>        
       </a>
-
+      <!-- Respuesta positiva de busqueda por nombre -->
       <div
         *ngIf="screening"
-        class="flex justify-center items-center absolute sm:bottom-6 right-8 bottom-4 transition-all duration-200 ease-in-out bg-green-800 w-40 text-[#FDFBF6] font-bold py-2"
+        class="flex justify-center items-center absolute sm:bottom-6 right-8 bottom-5 transition-all duration-200 ease-in-out bg-green-800 w-40 text-[#FDFBF6] font-bold py-2"
       >
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="sm:w-6 sm:h-6 w-4 h-4">
         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
       </svg>
-      <p class="text-md px-2">Encontrada</p>      
+      <p class="sm:text-md text-sm px-2">Encontrada</p>      
       </div>
-
+      <!-- Respuesta negativa de busqueda por nombre -->
       <div
         *ngIf="status === 2"
-        class="flex justify-center items-center absolute sm:bottom-6 right-8 bottom-4 transition-all duration-200 ease-in-out bg-red-800 w-40 text-[#FDFBF6] font-bold py-2"
+        class="flex justify-center items-center absolute sm:bottom-6 right-8 bottom-5 transition-all duration-200 ease-in-out bg-red-800 w-40 text-[#FDFBF6] font-bold py-2"
       >
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="sm:w-6 sm:h-6 w-4 h-4">
         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
       </svg>      
-      <p class="text-md px-2">No existe</p>      
+      <p class="sm:text-md text-sm px-2">No existe</p>      
       </div>
       
     </div>
@@ -69,6 +68,7 @@
       class="bg-[#CB9F01] text-[#FDFBF6] font-semibold my-4 py-5 px-8 rounded-full mt-4 transition-all duration-200 ease-in-out hover:bg-[#CB9F01]/60"
       [class.disabled]="!screening"
       [class.cursor-pointer]="screening"
+      (click)="toggleModal()"
     >
       Realizar Screening
     </a>
@@ -187,12 +187,12 @@
           Razón Social
         </label>
         <input
-          placeholder="Ferreyros S.A."
+          placeholder="Planet Express"
           required 
           id="Razon"
           formControlName="Razon"
           type="text"
-          class="text-[#393937] bg-[#FDFBF6] w-[92.5%] border border-slate-500 text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          class="text-[#393937] w-[92.5%] border text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
           [class.noValido]="form.controls['Razon'].invalid && (form.controls['Razon'].touched || form.controls['Razon'].dirty)"
           [class.valido]="form.controls['Razon'].valid && (form.controls['Razon'].touched || form.controls['Razon'].dirty)"
         />
@@ -224,7 +224,7 @@
           id="NombreEmpresa"
           formControlName="NombreEmpresa"
           type="text"
-          class="text-[#393937] bg-[#FDFBF6] w-[92.5%] border border-slate-500 text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          class="text-[#393937] w-[92.5%] border text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
           [class.noValido]="form.controls['NombreEmpresa'].invalid && (form.controls['NombreEmpresa'].touched || form.controls['NombreEmpresa'].dirty)"
           [class.valido]="form.controls['NombreEmpresa'].valid && (form.controls['NombreEmpresa'].touched || form.controls['NombreEmpresa'].dirty)"
         />
@@ -256,7 +256,7 @@
           id="IdentificacionFiscal"
           formControlName="IdentificacionFiscal"
           type="tel"
-          class="text-[#393937] bg-[#FDFBF6] w-[92.5%] border border-slate-500 text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          class="text-[#393937] w-[92.5%] border text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
           [class.noValido]="form.controls['IdentificacionFiscal'].invalid && (form.controls['IdentificacionFiscal'].touched || form.controls['IdentificacionFiscal'].dirty)"
           [class.valido]="form.controls['IdentificacionFiscal'].valid && (form.controls['IdentificacionFiscal'].touched || form.controls['IdentificacionFiscal'].dirty)"
         />
@@ -306,7 +306,7 @@
           id="NumeroTelefono"
           formControlName="NumeroTelefono"
           type="tel"
-          class="text-[#393937] bg-[#FDFBF6] w-[92.5%] border border-slate-500 text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          class="text-[#393937] w-[92.5%] border text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
           [class.noValido]="form.controls['NumeroTelefono'].invalid && (form.controls['NumeroTelefono'].touched || form.controls['NumeroTelefono'].dirty)"
           [class.valido]="form.controls['NumeroTelefono'].valid && (form.controls['NumeroTelefono'].touched || form.controls['NumeroTelefono'].dirty)"
         />
@@ -356,7 +356,7 @@
           id="CorreoElectronico"
           formControlName="CorreoElectronico"
           type="email"
-          class="text-[#393937] bg-[#FDFBF6] w-[92.5%] border border-slate-500 text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          class="text-[#393937] w-[92.5%] border text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
           [class.noValido]="form.controls['CorreoElectronico'].invalid && (form.controls['CorreoElectronico'].touched || form.controls['CorreoElectronico'].dirty)"
           [class.valido]="form.controls['CorreoElectronico'].valid && (form.controls['CorreoElectronico'].touched || form.controls['CorreoElectronico'].dirty)"
         />
@@ -394,7 +394,7 @@
           id="SitioWeb"
           formControlName="SitioWeb"
           type="url"
-          class="text-[#393937] bg-[#FDFBF6] w-[92.5%] border border-slate-500 text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          class="text-[#393937] w-[92.5%] border text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
           [class.noValido]="form.controls['SitioWeb'].invalid && (form.controls['SitioWeb'].touched || form.controls['SitioWeb'].dirty)"
           [class.valido]="form.controls['SitioWeb'].valid && (form.controls['SitioWeb'].touched || form.controls['SitioWeb'].dirty)"
         />
@@ -432,7 +432,7 @@
           id="Direccion"
           formControlName="Direccion"
           type="text"
-          class="text-[#393937] bg-[#FDFBF6] w-[92.5%] border border-slate-500 text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          class="text-[#393937] w-[92.5%] border text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
           [class.noValido]="form.controls['Direccion'].invalid && (form.controls['Direccion'].touched || form.controls['Direccion'].dirty)"
           [class.valido]="form.controls['Direccion'].valid && (form.controls['Direccion'].touched || form.controls['Direccion'].dirty)"
         />
@@ -464,7 +464,7 @@
           id="Pais"
           formControlName="Pais"
           type="text"
-          class="text-[#393937] bg-[#FDFBF6] w-[92.5%] border border-slate-500 text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          class="text-[#393937] w-[92.5%] border text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
           [class.noValido]="form.controls['Pais'].invalid && (form.controls['Pais'].touched || form.controls['Pais'].dirty)"
           [class.valido]="form.controls['Pais'].valid && (form.controls['Pais'].touched || form.controls['Pais'].dirty)"
         />
@@ -496,7 +496,7 @@
           id="Facturacion"
           formControlName="Facturacion"
           type="number"
-          class="text-[#393937] bg-[#FDFBF6] w-[92.5%] border border-slate-500 text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          class="text-[#393937] w-[92.5%] border text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
           [class.noValido]="form.controls['Facturacion'].invalid && (form.controls['Facturacion'].touched || form.controls['Facturacion'].dirty)"
           [class.valido]="form.controls['Facturacion'].valid && (form.controls['Facturacion'].touched || form.controls['Facturacion'].dirty)"
         />
@@ -521,7 +521,7 @@
           id="FechaEdicion"
           formControlName="FechaEdicion"
           type="date"
-          class="text-[#393937] bg-[#FDFBF6] w-[92.5%] border border-slate-500 text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          class="text-[#393937] w-[92.5%] border text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
         />
       </div>
 
@@ -533,7 +533,7 @@
           id="id"
           formControlName="id"
           type="number"
-          class="text-[#393937] bg-[#FDFBF6] w-[92.5%] border border-slate-500 text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
+          class="text-[#393937] bg-[#FDFBF6] w-[92.5%] border text-sm font-medium p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#CB9F01] focus:ring-opacity-50"
         />
       </div>
 
@@ -938,6 +938,7 @@
     </div>   
   </section>
 
+  <!-- Detalles de aplicación -->
   <div id="info" class="p-4 sm:w-[85%] w-full mb-20">
     <h2 class="md:text-4xl text-2xl font-bold mb-2 text-[#FDFBF6] py-4">Información adicional</h2>
     <h2 class="md:text-xl text-lg font-bold mb-2 text-[#FDFBF6]">¿Cúal es el objetivo de la página?</h2>
@@ -953,11 +954,83 @@
   </div>
 
 </main>
-
+<!-- Botón de subida de página -->
 <a href="#" class="bg-[#CB9F01] w-12 h-12 rounded-full fixed bottom-20 right-9 flex items-center justify-center cursor-pointer">
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
     <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
   </svg>  
 </a>
+
+<!-- Modal toggle -->
+<div *ngIf="this.modal" class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+  <div class="bg-[#FDFBF6] relative w-auto my-6 mx-auto max-w-6xl">
+    <!--content-->
+    <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+      <!--header-->
+      <div class="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
+        <h3 class="text-3xl font-semibold">
+          {{selectedEmpresa.nombreEmpresa}}
+        </h3>
+        <button class="p-1 ml-auto bg-transparent border-0 text-[#302E39] opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none" (click)="toggleModal()">
+          <span class="bg-transparent text-[#302E39] opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+            ×
+          </span>
+        </button>
+      </div>
+      <!--body-->
+      <div class="relative p-6 flex-auto">
+        <p class="my-4 text-blueGray-500 text-lg leading-relaxed">
+          Verifica la información de la empresa y realiza el screening para identificar si la empresa está registrada en listas de alto riesgo.
+        </p>
+        <p class="my-4 text-blueGray-500 text-lg leading-relaxed">
+          Elige una de las siguientes opciones:
+        </p>
+      </div>
+      <div class="flex flex-col md:flex-row justify-center items-center">
+        <button 
+          class="bg-[#CB9F01] text-white font-semibold rounded py-2 px-8 transition-all duration-200 ease-in-out hover:bg-[#302E39] w-44 md:mx-2 mx-0 md:my-0 my-2"
+          (click)="screeningOffShore(selectedEmpresa.nombreEmpresa)"
+        >
+          Offshore
+        </button>
+        <button 
+          class="bg-[#CB9F01] text-white font-semibold rounded py-2 px-8 transition-all duration-200 ease-in-out hover:bg-[#302E39] w-44 md:mx-2 mx-0 md:my-0 my-2"
+          (click)="screeningOfac(selectedEmpresa.nombreEmpresa)"
+        >
+          OFAC
+        </button>
+        <button 
+          class="bg-[#CB9F01] text-white font-semibold rounded py-2 px-8 transition-all duration-200 ease-in-out hover:bg-[#302E39] w-44 md:mx-2 mx-0 md:my-0 my-2"
+          (click)="screeningWorldBank(selectedEmpresa.nombreEmpresa)"
+        >
+          World Bank
+        </button>
+      </div>
+      <!-- Respuestas -->
+      <div class="flex flex-col md:flex-row justify-center items-center">
+        <p *ngIf="this.offshore" class="my-4 text-gray-500 text-md leading-relaxed">
+          {{this.offshore}}
+        </p>
+        <p *ngIf="this.ofac" class="my-4 text-gray-500 text-md leading-relaxed">
+          {{this.ofac}}
+        </p>
+        <p *ngIf="this.worldBank" class="my-4 text-gray-500 text-md leading-relaxed">
+          {{this.worldBank}}
+        </p>
+        <p *ngIf="this.negative" class="my-4 text-gray-500 text-md leading-relaxed">
+          {{this.negative}}
+        </p>
+      </div>
+
+      <!--footer-->
+      <div class="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+        <button class="text-red-600 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" (click)="toggleModal()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="modal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
 
 <app-footer></app-footer>

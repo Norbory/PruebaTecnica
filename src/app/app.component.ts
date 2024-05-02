@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FooterComponent } from './components/footer/footer.component';
 import { Entity } from './core/types/entity';
 import { NgFor, NgIf } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
+// Componentes
+import { FooterComponent } from './components/footer/footer.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+// Consumo de API
 import { EmpresaService } from './core/services/empresa.service';
+import { ScreeningService } from './core/services/screening.service';
+// Pipes para filtrar
 import { NamePipePipe } from "./core/pipes/name-pipe.pipe";
 import { PaisPipePipe } from "./core/pipes/pais-pipe.pipe";
 import { TelefonoPipePipe } from "./core/pipes/telefono-pipe.pipe";
@@ -22,10 +26,11 @@ export class AppComponent implements OnInit{
   filterTelefono: string = '';
   EmpresaBuscada: string = '';
 
-  constructor(private _empresaService: EmpresaService) { }
+  constructor(private _empresaService: EmpresaService, private _screeningService: ScreeningService) { }
 
   ngOnInit() {
     this.getAllEmpresas();
+    this.grabarLocalStorage();
   }
 
   listEntity: Entity[] = [];
@@ -36,7 +41,8 @@ export class AppComponent implements OnInit{
   desplegar: boolean = false;
   opcionOrden: string = '';
   desplegarOrden: boolean = false;
-  screening: boolean = false
+  screening: boolean = false;
+  modal: boolean = false;
 
   // Local storage
   // Este servira para los usuarios registrados para guardar su información y token
@@ -49,8 +55,8 @@ export class AppComponent implements OnInit{
     localStorage.setItem('email', email);
     localStorage.setItem('password', password);
     localStorage.setItem('twoFactorCode', twoFactorCode);
+    localStorage.setItem('twoFactorRecoveryCode', twoFactorRecoveryCode);
   }
-
   // Obtener todas las empresas de la base de datos
   getAllEmpresas() {
     this._empresaService.getAllEmpresas().subscribe(
@@ -70,8 +76,36 @@ export class AppComponent implements OnInit{
   submitted: boolean = false;
   edited: boolean = false;
   deleted: boolean = false;
-  invitacion: boolean = false;
   status: number = 0;
+
+  // Respuestas de screening
+  //Offshore
+  offshore = {
+    "Entity": "",
+    "Jurisdiction": "",
+    "LinkedTo": "",
+    "DataFrom": ""
+  }
+  //Ofac
+  ofac = {
+    "Name": "",
+    "Address": "",
+    "Type": "",
+    "Program": "",
+    "List": "",
+    "Score": 0
+  }
+  //WorldBank
+  worldBank = {
+    "Name": "",
+    "Address": "",
+    "Country": "",
+    "FromDate": "",
+    "ToDate": "",
+    "Grounds": ""
+  }
+  // Respuesta negativa
+  negative: string = ""
 
   form = new FormGroup({
     id: new FormControl(0),
@@ -108,12 +142,10 @@ export class AppComponent implements OnInit{
         setTimeout(() => {
           this.submitted = false;
         }, 3000);
-        this.invitacion = false;
         this.submitted = true;
         this.form.reset();
       },
       error => {
-        this.invitacion = true;
         console.log(error);
     });  
   }
@@ -176,13 +208,11 @@ export class AppComponent implements OnInit{
             setTimeout(() => {
               this.edited = false;
             }, 3000);
-            this.invitacion = false;
             this.edited = true;
             this.visible = false;
             this.form.reset();
         },
         error => {
-          this.invitacion = true;
           console.log(error);
       });
   }
@@ -194,13 +224,11 @@ export class AppComponent implements OnInit{
         setTimeout(() => {
           this.deleted = false;
         }, 3000);
-        this.invitacion = false;
         this.deleted = true;
         this.visible = false;
         this.form.reset();
       },
       error => {
-        this.invitacion = true;
         console.log(error);
     });
   }
@@ -211,7 +239,6 @@ export class AppComponent implements OnInit{
       response => {
         if (response == null) {
           this.status = 2;
-          this.invitacion = true;
           this.screening = false;
           this.selectedEmpresa = {} as Entity;
           console.log('No se encontró la empresa');
@@ -219,16 +246,88 @@ export class AppComponent implements OnInit{
         }
         this.status = 1;
         this.screening = true;
-        this.invitacion = false;
         this.selectedEmpresa = response;
       },
       error => {
         this.status = 2;
-        const buscador = document.getElementById('buscador') as HTMLInputElement;
-        buscador.style.border = '2px solid red';
-        this.invitacion = true;
         this.screening = false;
         this.selectedEmpresa = {} as Entity;
+        console.log(error);
+    });
+  }
+
+  // Abrir Modal de screening
+  toggleModal() {
+    this.modal = !this.modal;
+    if (!this.modal) {
+      this.negative = '';
+      this.offshore = {
+        "Entity": "",
+        "Jurisdiction": "",
+        "LinkedTo": "",
+        "DataFrom": ""
+      };
+      this.ofac = {
+        "Name": "",
+        "Address": "",
+        "Type": "",
+        "Program": "",
+        "List": "",
+        "Score": 0
+      };
+      this.worldBank = {
+        "Name": "",
+        "Address": "",
+        "Country": "",
+        "FromDate": "",
+        "ToDate": "",
+        "Grounds": ""
+      };
+    }
+  }
+
+  // Realizar screening en OffShore
+  screeningOffShore(name: string) {
+    this._screeningService.screeningOffShore(name).subscribe(
+      response => {
+        if (typeof response === 'string'){
+          this.negative = response;
+          return;
+        }
+        this.offshore = response;
+        
+      },
+      error => {
+        console.log(error);
+    });
+  }
+
+  // Realizar screening en Ofac
+  screeningOfac(name: string) {
+    this._screeningService.screeningOfac(name).subscribe(
+      response => {
+        if (typeof response === 'string'){
+          this.negative = response;
+          return;
+        }
+        this.ofac = response;
+      },
+      error => {
+        console.log(error);
+    });
+  }
+
+  // Realizar screening en WorldBank
+  screeningWorldBank(name: string) {
+    this._screeningService.screeningWorldBank(name).subscribe(
+      response => {
+        if (typeof response === 'string'){
+          this.negative = response;
+          return;
+        }
+        this.worldBank = response;
+      },
+      error => {
         console.log(error);
     });
   }
